@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_filters %}
+{%block title%}
+ {{user}} | Profile
+{%endblock%}
+
+{% block content %}
+    <div class="container py-3">
+        <h5>Search Results</h5>
+        <div class="row my-3">
+             {% for product in object_list %}
+            <div class="col-12 col-md-4 col-sm-6 col-md-4 col-lg-3 p-b-35">
+                <div class="block2">
+						<div class="block2-pic hov-img0">
+							<a href="/shop/{{product.slug}}">
+								<img src="/media/{{product.img1}}" alt="{{product.slug}}">
+							</a>
+							
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" 
+							data-img1="/media/{{product.img1}}" data-img2="/media/{{product.img2}}"  data-img3="/media/{{product.img3}}"
+							data-name="{{product.name}}" data-price="{{product.price}}" data-specifications="{{product.specifications}}" data-description="{{product.description}}">
+								Quick View
+							</a>
+						</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="/shop/{{product.slug}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									{{product.name}}
+								</a>
+								<small class="badge badge-info">{{product.category}}</small>
+
+								<span class="stext-105 cl3">
+									${{product.price}}
+								</span>
+							</div>
+
+							<div class="block2-txt-child2 flex-r p-t-3">
+								{% if request.user.is_authenticated %}								
+								<i class="zmdi zmdi-shopping-cart zmdi-hc-2x cart-icon" data-product_id={{product}}></i>
+								{% else %}
+								<i class="zmdi zmdi-shopping-cart zmdi-hc-2x cart-icon-nologin"></i>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+            </div>
+             {% endfor %}
+        </div>
+    </div>
+ 
+
+ 
+{% endblock %}
